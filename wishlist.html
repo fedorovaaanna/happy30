@@ -601,6 +601,7 @@
     .fund { padding: 40px 20px; border-radius: 28px; }
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -610,6 +611,13 @@
 -->
 <script>
   const API_BASE_URL = ""; // локально: "http://localhost:3001/api"   деплой: "https://<app>.onrender.com/api"
+
+  // Shared Supabase DB (GitHub Pages → работает у всех посетителей)
+  const SUPABASE_URL = "https://moxzfpvwqcpvlknkvguc.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1veHpmcHZ3cWNwdmxrbmt2Z3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1MjU3NTIsImV4cCI6MjEwMjEwMTc1Mn0.Dkx8x0pCY97vNaoInP4VmBpuONCnfTmyFD8id087cXc";
+  const supabaseClient = (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
 </script>
 
 <!-- =============== HERO =============== -->
@@ -733,60 +741,99 @@
     return `assets/photos/cards/${id}.svg`;
   }
 
-  const isDemo = !API_BASE_URL;
+  const useSupabase = !!supabaseClient;
+  const useLocalAPI = !useSupabase && !!API_BASE_URL;
+  const isDemo = !useSupabase && !useLocalAPI;
   if (isDemo) document.getElementById('demoBanner').style.display = 'block';
 
   function demoKey(id) { return `wishlist_taken_${id}`; }
   function demoGetTaken(id) { return Number(localStorage.getItem(demoKey(id))) || 0; }
   function demoSetTaken(id, val) { localStorage.setItem(demoKey(id), String(val)); }
 
+  function mergeStatus(base, takenMap) {
+    const status = takenMap[base.id] || { taken_qty: 0, total_qty: base.total_qty };
+    return {
+      ...base,
+      price:     base.price,
+      currency:  base.currency ?? 'GEL',
+      subtitle:  base.subtitle ?? null,
+      details:   base.details ?? null,
+      total_qty: Number.isFinite(status.total_qty) ? status.total_qty : base.total_qty,
+      taken_qty: Number.isFinite(status.taken_qty) ? status.taken_qty : 0,
+    };
+  }
+
   async function fetchStatus() {
-    if (isDemo) {
-      return WISHLIST.map(item => ({ ...item, taken_qty: demoGetTaken(item.id) }));
+    if (useSupabase) {
+      try {
+        const { data, error } = await supabaseClient.from('wishlist_status').select('item_id,total_qty,taken_qty');
+        if (error) throw error;
+        const map = {};
+        (data || []).forEach(r => { map[r.item_id] = { taken_qty: r.taken_qty, total_qty: r.total_qty }; });
+        return WISHLIST.map(item => mergeStatus(item, map));
+      } catch (e) {
+        console.error('Supabase fetchStatus failed', e);
+        return WISHLIST.map(item => ({ ...item, taken_qty: 0 }));
+      }
     }
-    try {
-      const res = await fetch(`${API_BASE_URL}/items`);
-      const data = await res.json();
-      return data.items.map(item => {
-        const base = WISHLIST.find(w => w.id === item.id);
-        return {
-          ...item,
-          name: item.name ?? base?.name,
-          subtitle: item.subtitle ?? base?.subtitle,
-          details: item.details ?? base?.details ?? null,
-          price: item.price ?? base?.price ?? null,
-          currency: item.currency ?? base?.currency ?? 'GEL',
-          total_qty: Number.isFinite(item.total_qty) ? item.total_qty : base?.total_qty ?? 1,
-          taken_qty: Number.isFinite(item.taken_qty) ? item.taken_qty : 0,
-        };
-      });
-    } catch (e) {
-      console.error('Не удалось получить статус вишлиста', e);
-      return WISHLIST.map(item => ({ ...item, taken_qty: 0 }));
+
+    if (useLocalAPI) {
+      try {
+        const res  = await fetch(`${API_BASE_URL}/items`);
+        const data = await res.json();
+        const map  = {};
+        (data.items || []).forEach(it => { map[it.id] = { taken_qty: it.taken_qty, total_qty: it.total_qty }; });
+        return WISHLIST.map(item => mergeStatus(item, map));
+      } catch (e) {
+        console.error('Не удалось получить статус вишлиста', e);
+        return WISHLIST.map(item => ({ ...item, taken_qty: 0 }));
+      }
     }
+
+    return WISHLIST.map(item => ({ ...item, taken_qty: demoGetTaken(item.id) }));
   }
 
   async function claimItem(id, qty) {
-    if (isDemo) {
-      const item = WISHLIST.find(i => i.id === id);
-      const current = demoGetTaken(id);
-      const remaining = item.total_qty === -1 ? Infinity : item.total_qty - current;
-      const give = Math.min(qty, remaining);
-      if (give <= 0) return { success: false, message: 'already_taken' };
-      demoSetTaken(id, current + give);
-      return { success: true, taken_qty: current + give, total_qty: item.total_qty, given_qty: give };
+    if (useSupabase) {
+      try {
+        const { data, error } = await supabaseClient
+          .rpc('increment_wishlist_taken', { p_item_id: id, p_qty: qty });
+        if (error) throw error;
+        const r = (data && typeof data === 'object') ? data : {};
+        return {
+          success:   !!r.success,
+          message:   r.message  || (r.success ? 'ok' : 'failed'),
+          taken_qty: Number.isFinite(r.taken_qty) ? r.taken_qty : undefined,
+          total_qty: Number.isFinite(r.total_qty) ? r.total_qty : undefined,
+          given_qty: Number.isFinite(r.given_qty) ? r.given_qty : undefined,
+        };
+      } catch (e) {
+        console.error('Supabase claimItem failed', e);
+        return { success: false, message: 'network_error' };
+      }
     }
-    try {
-      const res = await fetch(`${API_BASE_URL}/items/${id}/claim`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ qty })
-      });
-      return await res.json();
-    } catch (e) {
-      console.error('Не удалось занять подарок', e);
-      return { success: false, message: 'network_error' };
+
+    if (useLocalAPI) {
+      try {
+        const res = await fetch(`${API_BASE_URL}/items/${id}/claim`, {
+          method:  'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body:    JSON.stringify({ qty })
+        });
+        return await res.json();
+      } catch (e) {
+        console.error('Не удалось занять подарок', e);
+        return { success: false, message: 'network_error' };
+      }
     }
+
+    const item = WISHLIST.find(i => i.id === id);
+    const current = demoGetTaken(id);
+    const remaining = item.total_qty === -1 ? Infinity : item.total_qty - current;
+    const give = Math.min(qty, remaining);
+    if (give <= 0) return { success: false, message: 'already_taken' };
+    demoSetTaken(id, current + give);
+    return { success: true, taken_qty: current + give, total_qty: item.total_qty, given_qty: give };
   }
 
   function priceLabel(item) {
