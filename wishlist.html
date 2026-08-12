@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мой вишлист на день рождения 🎂</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --c-pink-100: #fff5f8;
+    --c-pink-200: #ffe9f0;
+    --c-pink-300: #ffe0ec;
+    --c-pink-400: #f9c0d7;
+    --c-pink-500: #d9578d;
+    --c-pink-600: #c2447a;
+    --c-text: #5a2a3a;
+    --c-text-soft: #7a3f52;
+    --c-text-softer: #8a5266;
+    --c-text-subtle: #a95d78;
+    --shadow-card: 0 10px 30px rgba(217, 87, 141, 0.16), 0 3px 8px rgba(217, 87, 141, 0.10);
+    --shadow-sticker: 0 12px 28px rgba(194, 68, 122, 0.22), 0 4px 10px rgba(194, 68, 122, 0.12);
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --transition-smooth: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+
+  html, body { height: 100%; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #ffd9e8 0%, transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, #ffe3c7 0%, transparent 55%),
+      linear-gradient(180deg, var(--c-pink-100) 0%, var(--c-pink-200) 100%);
+    color: var(--c-text);
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  .sans { font-family: 'Montserrat', system-ui, sans-serif; }
+
+  /* ============ HERO COLLAGE ============ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 80px 24px 140px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, #ffd6e5 0%, rgba(255,214,229,0) 55%),
+      radial-gradient(ellipse at 80% 20%, #ffedf5 0%, rgba(255,237,245,0) 60%),
+      linear-gradient(180deg, #fff5f8 0%, #ffe9f0 100%);
+    z-index: 0;
+  }
+
+  .collage {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+    min-height: calc(100vh - 220px);
+    z-index: 1;
+  }
+
+  .stick {
+    position: absolute;
+    will-change: transform;
+    filter: drop-shadow(0 18px 24px rgba(194, 68, 122, 0.22));
+    transition: var(--transition-smooth);
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .stick img, .stick svg { width: 100%; height: 100%; display: block; pointer-events: none; }
+  .stick img.round {
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    box-shadow: inset 0 0 0 4px #fff;
+  }
+  .stick img.sticker {
+    object-fit: cover;
+    aspect-ratio: 4 / 5;
+    border-radius: 22px;
+    box-shadow: inset 0 0 0 5px #fff, 0 0 0 1px rgba(194,68,122,.08);
+  }
+
+  /* Фиксированные позиции (не рандом в рантайме — без layout shift) */
+  .s-1 { top: -10px; left: -30px;  width: 220px; transform: rotate(-10deg); }
+  .s-2 { top: 40px;   left: 18%;    width: 170px; transform: rotate(7deg); }
+  .s-3 { top: 0;      right: -10px; width: 240px; transform: rotate(12deg); }
+  .s-4 { top: 28%;    left: 3%;     width: 190px; transform: rotate(-6deg); }
+  .s-5 { top: 32%;    right: 12%;   width: 150px; transform: rotate(-14deg); }
+  .s-6 { top: 55%;    left: -20px;  width: 180px; transform: rotate(9deg); }
+  .s-7 { top: 62%;    right: -30px; width: 200px; transform: rotate(-9deg); }
+  .s-8 { top: 78%;    left: 22%;    width: 130px; transform: rotate(5deg); }
+  .s-9 { top: 82%;    right: 22%;   width: 160px; transform: rotate(-3deg); }
+  .s-10{ bottom: -30px; left: 45%; width: 150px; transform: rotate(14deg); }
+  .s-11{ top: 48%;    right: 4%;    width: 160px; transform: rotate(10deg); }
+  .s-12{ top: 56%;    left: 10%;    width: 170px; transform: rotate(-6deg); }
+
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 6vh auto 0;
+    text-align: center;
+    padding: 48px 28px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .kicker {
+    display: inline-block;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.8em;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--c-pink-500);
+    padding: 6px 14px;
+    background: rgba(255, 208, 228, 0.6);
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+
+  .hero-title {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.2rem, 6vw, 4.6rem);
+    line-height: 0.98;
+    letter-spacing: 0.02em;
+    color: var(--c-pink-600);
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    text-shadow:
+      0 2px 0 rgba(255,255,255,0.6),
+      0 10px 30px rgba(194, 68, 122, 0.18);
+  }
+  .hero-title .small {
+    display: block;
+    font-size: 0.55em;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--c-pink-500);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .hero-lead {
+    font-size: 1.12em;
+    color: var(--c-text-soft);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .hero-lead .accent { font-style: italic; color: var(--c-pink-500); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.78em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--c-text-subtle);
+    z-index: 2;
+  }
+  .scroll-hint::after {
+    content: "";
+    display: block;
+    width: 1px; height: 28px;
+    background: linear-gradient(var(--c-pink-400), transparent);
+    margin: 8px auto 0;
+  }
+
+  /* ============ BANNER (demo mode) ============ */
+  .banner {
+    max-width: 860px;
+    margin: -80px auto 36px;
+    padding: 12px 20px;
+    background: #fff3e0;
+    border: 1px solid #ffd9a0;
+    border-radius: 14px;
+    color: #8a5b1f;
+    font-size: 0.88em;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+  }
+
+  /* ============ SECTION TITLES ============ */
+  .section {
+    padding: 20px 24px 70px;
+  }
+  .section-title {
+    text-align: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--c-pink-600);
+    margin-bottom: 10px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--c-text-subtle);
+    margin-bottom: 52px;
+    font-size: 0.95em;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============ WISHLIST STICKER GRID ============ */
+  .wishlist {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 36px;
+    padding: 10px 0;
+  }
+  @media (max-width: 900px)  { .wishlist { grid-template-columns: repeat(2, 1fr); gap: 44px 28px; } }
+  @media (max-width: 560px)  { .wishlist { grid-template-columns: 1fr; gap: 44px; } }
+
+  .card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    padding: 24px 22px 22px;
+    background: #ffffff;
+    box-shadow: var(--shadow-sticker);
+    transform-origin: center center;
+    transition: var(--transition-smooth);
+    z-index: 1;
+  }
+  .card.rot-r { transform: rotate(2.2deg); }
+  .card.rot-l { transform: rotate(-2.2deg); }
+
+  .card .card-img {
+    position: relative;
+    width: 70%;
+    max-width: 180px;
+    margin: -64px auto 14px;
+    z-index: 2;
+    filter: drop-shadow(0 14px 20px rgba(194, 68, 122, 0.22));
+  }
+  .card .card-img img, .card .card-img svg {
+    width: 100%; height: auto; display: block;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover {
+      transform: rotate(0deg) scale(1.035);
+      box-shadow: 0 18px 40px rgba(194, 68, 122, 0.28), 0 6px 14px rgba(194, 68, 122, 0.15);
+      z-index: 4;
+    }
+  }
+
+  .card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .card h3 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1.05em;
+    line-height: 1.3;
+    color: var(--c-pink-600);
+  }
+  .qty-badge {
+    flex-shrink: 0;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.74em;
+    font-weight: 700;
+    white-space: nowrap;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--c-pink-300);
+    color: var(--c-pink-600);
+  }
+  .qty-badge.low { background: #ffe2cb; color: #c96a1e; }
+  .qty-badge.gone { background: #ececec; color: #707070; }
+
+  .card-subtitle {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: #a04e77;
+    background: #fff1f8;
+    border: 1px dashed #f4b8d1;
+    border-radius: 14px;
+    padding: 10px 13px;
+    margin: 6px 0 12px;
+  }
+
+  .meta { font-size: 0.92em; color: var(--c-text-softer); margin-bottom: 14px; }
+  .price-tag {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--c-pink-600);
+  }
+
+  .card-details {
+    background: #fff7fa;
+    border: 1px solid #f4d4e3;
+    border-radius: 10px;
+    padding: 0;
+    margin: 0 0 6px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .card-details, .card-details * {
+    box-sizing: border-box;
+  }
+  .card-details summary {
+    list-style: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 5px 10px;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.84em;
+    color: #b24f7b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    user-select: none;
+    box-sizing: border-box;
+    line-height: 1.15;
+  }
+  .card-details summary::-webkit-details-marker { display: none; }
+  .card-details summary::before {
+    content: "▸";
+    color: #d46a9a;
+    transition: transform .2s ease;
+    font-size: 0.9em;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  .card-details[open] summary::before { transform: rotate(90deg); }
+  .card-details .details-body {
+    width: 100%;
+    padding: 1px 10px 6px 10px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.78em;
+    line-height: 1.18;
+    color: #7a2f52;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+  }
+  .card-details .section-label {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.66em;
+    letter-spacing: 0.01em;
+    color: #8e3a64;
+    text-transform: uppercase;
+    margin: 3px 0 1px;
+    display: block;
+    width: 100%;
+    line-height: 1.1;
+  }
+  .card-details .purpose-box {
+    width: auto;
+    max-width: 100%;
+    display: inline-block;
+    background: #ffecf4;
+    border: 1px dashed #e48bb0;
+    border-radius: 8px;
+    padding: 3px 8px;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 0.82em;
+    color: #7a2f52;
+    margin: 0 0 2px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+    line-height: 1.2;
+  }
+  .card-details .or-box {
+    width: 100%;
+    margin: 4px 0 0;
+    padding: 4px 7px;
+    border: 1px solid #f4d4e3;
+    border-radius: 8px;
+    background: #fffafc;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.74em;
+    line-height: 1.18;
+    color: #8a3763;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+  }
+  .card-details .or-box strong {
+    display: inline-block;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 700;
+    color: #b84372;
+    font-size: 0.95em;
+    margin-right: 3px;
+  }
+  .card-details .copy-row {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 3px;
+  }
+  .card-details .copy-btn {
+    background: #ffdbe9;
+    color: #9e3567;
+    border: 1px solid #f4b8d1;
+    border-radius: 7px;
+    padding: 2px 7px;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.68em;
+    cursor: pointer;
+    transition: background .15s;
+    line-height: 1.3;
+  }
+  .card-details .copy-btn:hover { background: #ffc3dd; }
+  .card-details .copy-btn.copied { background: #c5f0d0; color: #28764a; border-color: #9fdcb0; }
+
+  .controls { display: flex; align-items: stretch; gap: 10px; }
+  .qty-select {
+    border: 1px solid #f4b8d1;
+    border-radius: 12px;
+    padding: 0 10px;
+    height: 44px;
+    color: var(--c-text-soft);
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 600;
+    background: #fff7fa;
+    min-width: 68px;
+  }
+  .take-btn {
+    flex: 1;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 14px;
+    min-height: 44px;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.95em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #fff;
+    background: linear-gradient(180deg, var(--c-pink-500) 0%, var(--c-pink-600) 100%);
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(217, 87, 141, 0.28);
+    transition: transform 0.12s ease, filter 0.2s ease, background 0.2s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .take-btn:hover:not(:disabled) { filter: brightness(1.05); }
+    .take-btn:active:not(:disabled) { transform: scale(0.97); }
+  }
+  .take-btn.taken { background: linear-gradient(180deg, #c9c9c9 0%, #a8a8a8 100%); box-shadow: none; }
+  .take-btn:disabled { cursor: default; }
+
+  .status-note {
+    min-height: 1.2em;
+    margin-top: 10px;
+    font-size: 0.82em;
+    color: var(--c-text-subtle);
+    font-style: italic;
+  }
+
+  /* ============ FUND SECTION ============ */
+  .fund {
+    max-width: 1100px;
+    margin: 0 auto 60px;
+    padding: 56px 32px;
+    border-radius: 40px;
+    background:
+      radial-gradient(ellipse at 20% 0%, #ffd8e8 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, #ffe5cc 0%, transparent 55%),
+      #fff0f6;
+    border: 1px solid #ffd6e5;
+    box-shadow: 0 16px 40px rgba(217, 87, 141, 0.12);
+    position: relative;
+  }
+  .fund h2 {
+    text-align: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--c-pink-600);
+    margin-bottom: 12px;
+  }
+  .fund .lead {
+    text-align: center;
+    color: var(--c-text-soft);
+    max-width: 620px;
+    margin: 0 auto 40px;
+    font-size: 1em;
+  }
+  .fund-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 780px) { .fund-list { grid-template-columns: 1fr; gap: 28px; } }
+
+  .fund-item {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 26px 22px 24px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+  .fund-item.fi-r { transform: rotate(2.5deg); }
+  .fund-item.fi-l { transform: rotate(-2.5deg); }
+  @media (hover: hover) and (pointer: fine) {
+    .fund-item:hover { transform: rotate(0deg) scale(1.03); }
+  }
+  .fund-item .emoji { font-size: 2.4em; margin-bottom: 8px; line-height: 1; }
+  .fund-item .fund-img {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 10px;
+    box-shadow: 0 12px 24px rgba(194, 68, 122, 0.22), 0 2px 4px rgba(0,0,0,.06);
+    border: 3px solid #fff;
+  }
+  .fund-item h4 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 1.02em;
+    font-weight: 700;
+    color: var(--c-pink-600);
+    margin-bottom: 6px;
+  }
+  .fund-item p { font-size: 0.88em; color: var(--c-text-softer); }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    text-align: center;
+    padding: 30px 20px 60px;
+    color: #b57c93;
+    font-size: 0.9em;
+  }
+  .footer .heart { color: var(--c-pink-500); }
+
+  /* ============ REDUCED MOTION ============ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+    .card:hover, .fund-item:hover { transform: none; }
+  }
+
+  /* ============ MOBILE TWEAKS ============ */
+  @media (max-width: 720px) {
+    .hero { padding: 56px 18px 120px; }
+    .stick { filter: drop-shadow(0 12px 18px rgba(194, 68, 122, 0.2)); }
+    .s-1 { width: 130px; left: -20px; top: 10px; transform: rotate(-7deg); }
+    .s-2 { width: 108px; left: 20%; top: 60px; transform: rotate(5deg); }
+    .s-3 { width: 140px; right: -14px; top: 0; transform: rotate(8deg); }
+    .s-4 { width: 120px; top: 30%; left: 2%; transform: rotate(-4deg); }
+    .s-5 { width: 98px; top: 34%; right: 6%; transform: rotate(-9deg); }
+    .s-6 { width: 118px; top: 58%; left: -14px; transform: rotate(6deg); }
+    .s-7 { width: 130px; top: 64%; right: -20px; transform: rotate(-6deg); }
+    .s-8 { width: 88px; top: 80%; left: 14%; transform: rotate(3deg); }
+    .s-9 { width: 106px; top: 84%; right: 10%; transform: rotate(-2deg); }
+    .s-10{ width: 100px; bottom: -18px; left: 40%; transform: rotate(9deg); }
+    .s-11{ width: 108px; top: 52%; right: -14px; transform: rotate(12deg); }
+    .s-12{ width: 110px; top: 58%; left: -18px; transform: rotate(-10deg); }
+
+    .card.rot-r { transform: rotate(1.2deg); }
+    .card.rot-l { transform: rotate(-1.2deg); }
+    .fund-item.fi-r { transform: rotate(1.4deg); }
+    .fund-item.fi-l { transform: rotate(-1.4deg); }
+
+    .hero-copy { padding: 32px 20px; }
+    .hero-lead { font-size: 1em; }
+    .fund { padding: 40px 20px; border-radius: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!--
+  ВАЖНО: подставь свой рабочий адрес бэкенда сюда после деплоя (см. README.md / TZ_backend.md).
+  Пока тут пусто — кнопки работают в демо-режиме (только в этом браузере, через localStorage).
+-->
+<script>
+  const API_BASE_URL = ""; // локально: "http://localhost:3001/api"   деплой: "https://<app>.onrender.com/api"
+</script>
+
+<!-- =============== HERO =============== -->
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+
+  <!-- Коллаж из стикеров. При наличии реальных PNG с прозрачным фоном — подставляй их src -->
+  <div class="collage" aria-hidden="true">
+    <div class="stick s-1"><img class="round" src="assets/photos/collage/cat_1.jpg" alt="Левон"></div>
+    <div class="stick s-2"><img class="sticker" src="assets/photos/collage/system_small.jpg" alt="Плакат"></div>
+    <div class="stick s-3"><img class="sticker" src="assets/photos/collage/print_small.jpg" alt="Мои принты"></div>
+    <div class="stick s-4"><img class="sticker" src="assets/photos/collage/yoga_small.jpg" alt="Йога по субботам"></div>
+    <div class="stick s-5"><img class="sticker" src="assets/photos/collage/psy_small.jpg" alt="Мурло"></div>
+    <div class="stick s-6"><img class="sticker" src="assets/photos/collage/gift_small.jpg" alt="Корзина Темушка"></div>
+    <div class="stick s-7"><img class="sticker" src="assets/photos/collage/cake_small.jpg" alt="Хоккайдо хлеб"></div>
+    <div class="stick s-9"><img class="sticker" src="assets/photos/collage/massage_small.jpg" alt="Массаж Тбилиси"></div>
+    <div class="stick s-10"><img class="sticker" src="assets/photos/collage/shoes.jpg" alt="Кроссовки на снегу"></div>
+    <div class="stick s-11"><img class="sticker" src="assets/photos/collage/psy_anna_small.jpg" alt="Селфи для психологине"></div>
+    <div class="stick s-12"><img class="sticker" src="assets/photos/collage/psy_stool_small.jpg" alt="Психологине стул"></div>
+  </div>
+
+  <div class="hero-copy">
+    <span class="kicker">2026 · 0+</span>
+    <h1 class="hero-title">
+      <span class="small">My Birthday</span>
+      Wishlist
+    </h1>
+    <p class="hero-lead">
+      Обычно на день рождения просят деньги. Но здесь список того, что я <span class="accent">обычно делаю сама</span> для себя,
+      и что я с радостью приму в подарок вместо простого перевода.
+      На что пойдет моя зарплата в этом месяце вы узнаете, если долистаете страницу до конца 🤍
+    </p>
+  </div>
+
+  <div class="scroll-hint">листай вниз</div>
+</header>
+
+<!-- =============== DEMO BANNER =============== -->
+<div id="demoBanner" class="banner" style="display:none;">
+  Демо-режим: статус «занято» виден только в этом браузере. Чтобы он был общий для всех гостей,
+  подставь <code>API_BASE_URL</code> в код страницы (инструкция — README.md).
+</div>
+
+<!-- =============== WISHLIST =============== -->
+<section class="section">
+  <h2 class="section-title">Что можно подарить</h2>
+  <p class="section-sub">выбери количество и нажми «Беру»</p>
+
+  <div class="wishlist" id="wishlistCards"></div>
+</section>
+
+<!-- =============== FUND =============== -->
+<section class="section" style="padding-top: 0;">
+  <div class="fund">
+    <h2>Фонд поездки в Россию 🐈</h2>
+    <p class="lead">
+      Всё, что не уйдёт на пункты вишлиста выше — идёт в фонд моей поездки в Россию:
+      медицинские обследования, оформление развода и переезд моего кота Левона в Тбилиси.
+    </p>
+    <div class="fund-list">
+      <div class="fund-item fi-l">
+        <div class="emoji">🩺</div>
+        <h4>Обследования</h4>
+        <p>Уже 3,5 года рак в ремиссии, но каждый год я езжу в РФ на чекап, который обходится мне от 500 до 1000 долларов. 
+          Большая часть обследований - бесплатная, но не все</p>
+      </div>
+      <div class="fund-item">
+        <div class="emoji">📄</div>
+        <h4>Развод</h4>
+        <p>юридическое оформление развода</p>
+      </div>
+      <div class="fund-item fi-r">
+        <img class="fund-img" src="assets/photos/fund/levon.jpg" alt="Левон в самолёте едет в Тбилиси">
+        <h4>Левон едет в Тбилиси</h4>
+        <p>перевозка кота ко мне — документы, переезд и перелёт</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== FOOTER =============== -->
+<footer class="footer">
+  Спасибо, что заглянули <span class="heart">♡</span> с любовью, Аня
+</footer>
+
+<script>
+  const BANK_DETAILS = "CREDO: GE92CD0360000034083541\nполучатель: Anna Fedorova";
+
+  // ---- Данные вишлиста (совпадают с сидом в TZ_backend.md / server.js) ----
+  const WISHLIST = [
+    { id: "korzina",  name: "Корзина на тему",                          price: null, currency: "GEL", total_qty: 2,  subtitle: "можете оплатить мою корзину на тему, но это кот в мешке 😼" },
+    { id: "massage",  name: "Массаж",                                    price: 130,  currency: "GEL", total_qty: 1,  details: BANK_DETAILS, subtitle: "у меня болит спина и массаж помогает"},
+    { id: "print",    name: "Купить мой принт",                          price: 100,  currency: "GEL", total_qty: 8,  subtitle: "приходи 23.08 в домик или напиши в личку, покажу принты" },
+    { id: "yoga",     name: "Занятие йогой со мной по субботам в 11:00", price: "бесплатно", currency: "GEL", total_qty: -1 },
+    { id: "bread",    name: "Хлеб хоккайдо в Палпе",                     price: 10,   currency: "GEL", total_qty: 4,  subtitle: "я ем буханку в неделю" },
+    { id: "rehab",    name: "Занятие с реабилитологом-тренером",         price: 450,  currency: "GEL", total_qty: 4,  subtitle: "каждому тренеру нужен тренер", details: BANK_DETAILS, subtitle: "иду к @gagik_coach" },
+    { id: "psy",      name: "Занятие с моей психологиней",               price: 160,  currency: "GEL", total_qty: 4,  details: BANK_DETAILS },
+    { id: "tattoo",   name: "Новая татуировка (это мой кот)",            price: 150,  currency: "GEL", total_qty: 1,  details: BANK_DETAILS, subtitle: "бью у @natkini_tatki" },
+    { id: "sneakers", name: "Копилка на кроссовки",                      price: null, currency: "GEL", total_qty: -1, subtitle: "любая сумма на новые кроссовки", details: BANK_DETAILS },
+  ];
+
+  // Пути к картинкам для карточек.
+  // Картинки ищутся в assets/photos/cards/<id>.png (реальная вырезка с прозрачным фоном).
+  // Если нет PNG — fallback на SVG-заглушку с emoji (всегда есть в репозитории).
+  const CARD_IMG_OVERRIDES = {
+    tattoo: "tattoo.jpg",
+    yoga: "yoga.jpg",
+    psy: "psy.jpg",
+    print: "print.jpg",
+    sneakers: "sneakers.jpg",
+    massage: "massage.jpg",
+    bread: "bread.jpg",
+    korzina: "korzina.jpg",
+    rehab: "rehab.jpg",
+  };
+
+  function cardImgSrc(id) {
+    if (CARD_IMG_OVERRIDES[id]) {
+      return `assets/photos/cards/${CARD_IMG_OVERRIDES[id]}`;
+    }
+    return `assets/photos/cards/${id}.svg`;
+  }
+
+  const isDemo = !API_BASE_URL;
+  if (isDemo) document.getElementById('demoBanner').style.display = 'block';
+
+  function demoKey(id) { return `wishlist_taken_${id}`; }
+  function demoGetTaken(id) { return Number(localStorage.getItem(demoKey(id))) || 0; }
+  function demoSetTaken(id, val) { localStorage.setItem(demoKey(id), String(val)); }
+
+  async function fetchStatus() {
+    if (isDemo) {
+      return WISHLIST.map(item => ({ ...item, taken_qty: demoGetTaken(item.id) }));
+    }
+    try {
+      const res = await fetch(`${API_BASE_URL}/items`);
+      const data = await res.json();
+      return data.items.map(item => {
+        const base = WISHLIST.find(w => w.id === item.id);
+        return {
+          ...item,
+          name: item.name ?? base?.name,
+          subtitle: item.subtitle ?? base?.subtitle,
+          details: item.details ?? base?.details ?? null,
+          price: item.price ?? base?.price ?? null,
+          currency: item.currency ?? base?.currency ?? 'GEL',
+          total_qty: Number.isFinite(item.total_qty) ? item.total_qty : base?.total_qty ?? 1,
+          taken_qty: Number.isFinite(item.taken_qty) ? item.taken_qty : 0,
+        };
+      });
+    } catch (e) {
+      console.error('Не удалось получить статус вишлиста', e);
+      return WISHLIST.map(item => ({ ...item, taken_qty: 0 }));
+    }
+  }
+
+  async function claimItem(id, qty) {
+    if (isDemo) {
+      const item = WISHLIST.find(i => i.id === id);
+      const current = demoGetTaken(id);
+      const remaining = item.total_qty === -1 ? Infinity : item.total_qty - current;
+      const give = Math.min(qty, remaining);
+      if (give <= 0) return { success: false, message: 'already_taken' };
+      demoSetTaken(id, current + give);
+      return { success: true, taken_qty: current + give, total_qty: item.total_qty, given_qty: give };
+    }
+    try {
+      const res = await fetch(`${API_BASE_URL}/items/${id}/claim`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ qty })
+      });
+      return await res.json();
+    } catch (e) {
+      console.error('Не удалось занять подарок', e);
+      return { success: false, message: 'network_error' };
+    }
+  }
+
+  function priceLabel(item) {
+    if (item.price == null) return 'сумма по договорённости';
+    return `<span class="price-tag">${item.price} ${item.currency === 'GEL' ? '₾' : item.currency}</span> / шт`;
+  }
+
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  const PURPOSE_TEXT = {
+    sneakers:  "sneakers",
+    tattoo:   "tattoo",
+    psy:      "psychologist",
+    rehab:    "rehab",
+    massage:  "massage",
+  };
+
+  function detailsBlockHtml(item) {
+    if (!item.details) return '';
+    const d = escapeHtml(item.details);
+    const firstLine = String(item.details).split('\n').map(s => s.trim()).find(Boolean) || '';
+    const ibanMatch = firstLine.match(/([A-Z]{2}[A-Z0-9]{10,35})/i);
+    const iban = ibanMatch ? ibanMatch[1].toUpperCase() : '';
+
+    const purposeText = PURPOSE_TEXT[item.id] || String(item.name || '').trim();
+
+    const orBuyThemselves = item.id !== 'sneakers';
+
+    return `
+      <details class="card-details" data-details="${escapeHtml(item.id)}">
+        <summary>как подарить 💌</summary>
+        <div class="details-body">
+
+          <span class="section-label">Сообщение к переводу</span>
+          <div class="purpose-box">${escapeHtml(purposeText)}</div>
+          <div class="copy-row">
+            <button type="button" class="copy-btn" data-copy="purpose">Копировать сообщение</button>
+          </div>
+
+          <span class="section-label">Перевод на карту</span>
+          ${d}
+          <div class="copy-row">
+            <button type="button" class="copy-btn" data-copy="all">Скопировать реквизиты</button>
+            ${iban ? `<button type="button" class="copy-btn" data-copy="iban">Скопировать IBAN</button>` : ''}
+          </div>
+
+          ${orBuyThemselves ? `
+            <div class="or-box">
+              <strong>ИЛИ</strong>
+              купите сами, но то, что в карточке (${escapeHtml(String(item.name || '').trim())}).
+            </div>
+          ` : `
+            <div class="or-box">
+              <strong>💡</strong>
+              можете перевести любую удобную вам сумму — я сложу в «копилку» и в итоге куплю себе кроссовки сама.
+            </div>
+          `}
+
+        </div>
+      </details>
+    `;
+  }
+
+  function qtyBadgeLabel(item, remaining) {
+    if (item.total_qty === -1) return 'бесконечно';
+    return `осталось ${remaining} из ${item.total_qty}`;
+  }
+
+  function badgeClass(item, remaining) {
+    if (item.total_qty === -1) return '';
+    if (remaining <= 0) return 'gone';
+    if (remaining <= 2) return 'low';
+    return '';
+  }
+
+  function renderCard(item, taken_qty, index) {
+    const remaining = item.total_qty === -1 ? Infinity : item.total_qty - taken_qty;
+    const maxSelect = item.total_qty === -1 ? 20 : remaining;
+    const fullyTaken = remaining <= 0;
+
+    const card = document.createElement('article');
+    card.className = 'card ' + (index % 2 === 0 ? 'rot-l' : 'rot-r');
+    card.dataset.id = item.id;
+
+    let options = '';
+    for (let n = 1; n <= Math.max(maxSelect, 1); n++) {
+      options += `<option value="${n}">${n}</option>`;
+    }
+
+    card.innerHTML = `
+      <div class="card-img" aria-hidden="true">
+        <img src="${cardImgSrc(item.id)}" alt="">
+      </div>
+      <div class="card-head">
+        <h3>${item.name}</h3>
+        <span class="qty-badge ${badgeClass(item, remaining)}" data-role="badge">${qtyBadgeLabel(item, remaining)}</span>
+      </div>
+      ${item.subtitle ? `<div class="card-subtitle">${item.subtitle}</div>` : ''}
+      <div class="meta">${priceLabel(item)}</div>
+      ${detailsBlockHtml(item)}
+      <div class="controls">
+        ${item.total_qty !== 1 ? `<select class="qty-select" data-role="select" ${fullyTaken ? 'disabled' : ''}>${options}</select>` : ''}
+        <button class="take-btn" data-role="btn" ${fullyTaken ? 'disabled' : ''}>${fullyTaken ? 'Занято' : 'Беру'}</button>
+      </div>
+      <div class="status-note" data-role="note"></div>
+    `;
+
+    if (fullyTaken) card.querySelector('[data-role="btn"]').classList.add('taken');
+
+    // Copy buttons for bank details
+    if (item.details) {
+      const purposeText = PURPOSE_TEXT[item.id] || String(item.name || '').trim();
+
+      card.querySelectorAll('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const mode = btn.dataset.copy;
+          let text = '';
+          let okLabel = 'Скопировано ✅';
+          if (mode === 'purpose') {
+            text = purposeText;
+            okLabel = 'Сообщение скопировано ✅';
+          } else if (mode === 'iban') {
+            text = ((String(item.details).split('\n').map(s => s.trim()).find(Boolean) || '').match(/[A-Z]{2}[A-Z0-9]{10,35}/i) || [])[0] || '';
+            okLabel = 'IBAN скопирован ✅';
+          } else {
+            text = String(item.details);
+            okLabel = 'Реквизиты скопированы ✅';
+          }
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(text);
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+              document.body.appendChild(ta); ta.select();
+              try { document.execCommand('copy'); } catch (_) {}
+              document.body.removeChild(ta);
+            }
+            btn.classList.add('copied');
+            const old = btn.textContent;
+            btn.textContent = okLabel;
+            setTimeout(() => {
+              btn.classList.remove('copied');
+              btn.textContent = old;
+            }, 1800);
+          } catch (_) {}
+        });
+      });
+    }
+
+    card.querySelector('[data-role="btn"]').addEventListener('click', async () => {
+      const btn = card.querySelector('[data-role="btn"]');
+      const select = card.querySelector('[data-role="select"]');
+      const badge = card.querySelector('[data-role="badge"]');
+      const note = card.querySelector('[data-role="note"]');
+      const qty = select ? Number(select.value) : 1;
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      const result = await claimItem(item.id, qty);
+      if (result.success) {
+        const newRemaining = item.total_qty === -1 ? Infinity : item.total_qty - result.taken_qty;
+        badge.textContent = qtyBadgeLabel(item, newRemaining);
+        badge.className = 'qty-badge ' + badgeClass(item, newRemaining);
+
+        if (newRemaining <= 0) {
+          btn.textContent = 'Занято';
+          btn.classList.add('taken');
+          btn.disabled = true;
+          if (select) select.disabled = true;
+        } else {
+          btn.textContent = 'Беру';
+          btn.disabled = false;
+          note.textContent = `Спасибо! Взяли ещё ${result.given_qty} шт 🩷`;
+          note.style.color = 'var(--c-pink-500)';
+          note.style.fontStyle = 'normal';
+
+          // Обновить опции селекта
+          if (select) {
+            const newMax = item.total_qty === -1 ? 20 : newRemaining;
+            let newOpts = '';
+            for (let n = 1; n <= Math.max(newMax, 1); n++) newOpts += `<option value="${n}">${n}</option>`;
+            select.innerHTML = newOpts;
+          }
+        }
+      } else {
+        btn.textContent = 'Беру';
+        btn.disabled = false;
+        note.textContent = 'Кажется, уже разобрали. Обнови страницу 🙏';
+        note.style.color = '';
+        note.style.fontStyle = '';
+      }
+    });
+
+    return card;
+  }
+
+  async function init() {
+    const statusList = await fetchStatus();
+    const container = document.getElementById('wishlistCards');
+    statusList.forEach((item, i) => {
+      const taken = Number.isFinite(item.taken_qty) ? item.taken_qty : 0;
+      container.appendChild(renderCard(item, taken, i));
+    });
+  }
+
+  init();
+</script>
+
+</body>
+</html>

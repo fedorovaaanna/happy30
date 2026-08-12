@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff5c7"/>
+      <stop offset="100%" stop-color="#ffd87a"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#c2447a" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <g filter="url(#s)">
+    <polygon points="120,14 148,88 226,94 166,144 186,222 120,182 54,222 74,144 14,94 92,88" fill="url(#g)"/>
+    <polygon points="120,38 140,92 196,96 154,134 168,192 120,164 72,192 86,134 44,96 100,92" fill="#ffffff" fill-opacity="0.4"/>
+  </g>
+  <text x="120" y="144" text-anchor="middle" font-size="76" style="font-family:'Apple Color Emoji','Segoe UI Emoji',sans-serif">⭐</text>
+</svg>

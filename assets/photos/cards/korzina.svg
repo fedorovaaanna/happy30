@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff9935"/>
+      <stop offset="100%" stop-color="#ff6a13"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="400" height="400" rx="92" fill="url(#g)"/>
+  <g transform="translate(200 210)" text-anchor="middle">
+    <text x="0" y="-4" font-family="Arial Black, Arial, system-ui, sans-serif" font-weight="900" font-size="104" fill="#ffffff" letter-spacing="2">TEMU</text>
+    <text x="0" y="78" font-family="Arial, system-ui, sans-serif" font-weight="700" font-size="28" fill="#fff4e0" opacity="0.92">КОРЗИНА НА ТЕМУ</text>
+  </g>
+  <g transform="translate(200 348)" opacity="0.92">
+    <path d="M-58,-16 h116 v28 q0 16 -16 16 h-84 q-16 0 -16 -16 z" fill="#ffffff"/>
+    <rect x="-48" y="-40" width="96" height="28" rx="8" fill="#fff8ee"/>
+    <path d="M-30,-40 q30 -28 60 0" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(62 60)" opacity="0.72">
+    <text x="0" y="0" font-family="Arial, system-ui, sans-serif" font-weight="900" font-size="22" fill="#fff" transform="rotate(-10)">?</text>
+  </g>
+  <g transform="translate(330 52)" opacity="0.72">
+    <text x="0" y="0" font-family="Arial, system-ui, sans-serif" font-weight="900" font-size="22" fill="#fff" transform="rotate(10)">?</text>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "name": "birthday-wishlist-backend",
+  "version": "1.0.0",
+  "description": "Бэкенд для вишлиста на день рождения — Node.js + Express + SQLite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node seed.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
